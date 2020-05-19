@@ -1,8 +1,8 @@
 /*
  * @Author: Jane
- * @Date: 2020-04-16 11:04:35
+ * @Date: 2020-05-18 11:04:35
  * @LastEditors: Jane
- * @LastEditTime: 2020-05-18 17:41:00
+ * @LastEditTime: 2020-05-19 11:01:19
  * @Descripttion:
  */
 
@@ -22,39 +22,6 @@ const fs = require('fs');
 const moduleRootPath = 'src/views'; // 模块根目录(这个可以根据自己的需求命名)
 let moduleInfo = null;
 
-// 多入口配置
-// 通过glob模块读取pages文件夹下的所有对应文件夹下的js后缀文件，如果该文件存在
-// 那么就作为入口处理
-// exports.entries = function() {
-//   var entryFiles = glob.sync(PAGE_PATH + '/*/*.js');
-
-//   var map = {};
-//   entryFiles.forEach(filePath => {
-//     console.log('======');
-//     console.log(getSlashValue(filePath));
-//     let filename = getSlashValue(filePath);
-//     // var filename = filePath.substring(
-//     //   filePath.lastIndexOf('/') + 1,
-//     //   filePath.lastIndexOf('.')
-//     // );
-//     map[filename]['entry'] = filePath;
-//     map[filename]['template'] = filePath;
-//   });
-//   console.log(map);
-//   return map;
-// };
-// function getSlashValue(url) {
-//   return url
-//     .substr(url.lastIndexOf('/', url.lastIndexOf('/') - 1) + 1)
-//     .substring(
-//       0,
-//       url
-//         .substr(url.lastIndexOf('/', url.lastIndexOf('/') - 1) + 1)
-//         .lastIndexOf('/')
-//     );
-// }
-// 多页面输出配置
-// 与上面的多页面入口配置相同，读取pages文件夹下的对应的html后缀文件，然后放入数组中
 exports.htmlPlugin = () => {
   const entryHtml = glob.sync(`${PAGE_PATH}/*/*.html`);
   const arr = [];
@@ -160,43 +127,6 @@ exports.getModuleInfo = function getModuleInfo() {
 };
 
 // exports.getEntries();
-
-// module.exports = {
-//     getEntries: {
-//         page1: {
-//           // page 的入口
-//           entry: 'src/views/page1/main.js',
-//           // 模板来源
-//           template: 'public/index.html',
-//           // 在 dist/index.html 的输出
-//           filename: 'page1.html',
-//           // 当使用 title 选项时，
-//           // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-//           title: 'page1',
-//           // 在这个页面中包含的块，默认情况下会包含
-//           // 提取出来的通用 chunk 和 vendor chunk。
-//           chunks: ['chunk-vendors', 'chunk-common', 'page1']
-//         },
-//         page2: {
-//           // page 的入口
-//           entry: 'src/views/page2/main.js',
-//           // 模板来源
-//           template: 'public/index.html',
-//           // 在 dist/index.html 的输出
-//           filename: 'page2.html',
-//           // 当使用 title 选项时，
-//           // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-//           title: 'page2',
-//           // 在这个页面中包含的块，默认情况下会包含
-//           // 提取出来的通用 chunk 和 vendor chunk。
-//           chunks: ['chunk-vendors', 'chunk-common', 'page2']
-//         },
-//         index: {
-//           entry: 'src/main.js',
-//           template: 'public/index.html'
-//         }
-//     }
-// }
 
 // 多页面3设置
 const pages = {}; // 存放分页
