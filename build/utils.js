@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-05-18 11:04:35
  * @LastEditors: Jane
- * @LastEditTime: 2020-05-19 17:08:14
+ * @LastEditTime: 2020-05-19 18:21:58
  * @Descripttion:
  */
 
@@ -82,7 +82,6 @@ function readDirSync(_path, moduleName, nextLevel) {
     } else {
       // 判断当前模块的html是否存在
       if (ele === 'index.html') {
-        moduleObj.title = 'abc';
         moduleObj.template = `${_path}/${ele}`;
         moduleObj.filename = `${moduleID}/index.html`;
       } else {
@@ -177,6 +176,7 @@ exports.pages = () => {
       entry: `src/views/${fileName}/main.js`,
       // 模板文件，我使用的是一个公共的，也可以按照自己的需求配置
       template: 'public/index.html',
+      title: '小红屋全景相机',
       // 打包后dist文件夹输出的名字
       // fileName: fileName + '.html',
       filename: `${fileName}/index.html`,

@@ -19,7 +19,7 @@ function resolve(dir) {
 module.exports = {
   // pages: utils.getEntries(),
   pages: utils.pages(),
-  publicPath: '../', // 默认'/'，部署应用包时的基本 URL
+  publicPath: productionMode ? '../' : '/', // 默认'/'，部署应用包时的基本 URL
   outputDir: 'dist',
   // assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'dev',
