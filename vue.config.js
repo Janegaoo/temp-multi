@@ -19,9 +19,9 @@ function resolve(dir) {
 module.exports = {
   // pages: utils.getEntries(),
   pages: utils.pages(),
-  publicPath: '/', // 默认'/'，部署应用包时的基本 URL
+  publicPath: '../', // 默认'/'，部署应用包时的基本 URL
   outputDir: 'dist',
-  assetsDir: 'static',
+  // assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'dev',
   productionSourceMap: false,
   // css相关配置
@@ -69,7 +69,7 @@ module.exports = {
     v.plugins.push(
       new CopyWebpackPlugin({
         patterns: [
-          { from: resolve('static'), to: resolve('dist') },
+          { from: resolve('static'), to: 'static' },
         ],
       }),
     );
