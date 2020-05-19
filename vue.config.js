@@ -73,16 +73,6 @@ module.exports = {
         ],
       }),
     );
-    // v.plugins = [
-    //   new CopyWebpackPlugin({
-    //     patterns: [
-    //       { from: resolve('./static'), to: 'static' },
-    //     ],
-    //     options: {
-    //       // concurrency: 100,
-    //     },
-    //   }),
-    // ];
     if (productionMode) {
       // 为生产环境修改配置...
       // new TerserPlugin({
@@ -99,7 +89,7 @@ module.exports = {
       (() => new TerserPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true, // Must be set to true if using source-maps in production
+        sourceMap: false, // Must be set to true if using source-maps in production
         terserOptions: {
           compress: {
             dropConsole: true,
