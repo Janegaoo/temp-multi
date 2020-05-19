@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-05-18 11:04:35
  * @LastEditors: Jane
- * @LastEditTime: 2020-05-19 11:01:19
+ * @LastEditTime: 2020-05-19 17:08:14
  * @Descripttion:
  */
 
@@ -82,6 +82,7 @@ function readDirSync(_path, moduleName, nextLevel) {
     } else {
       // 判断当前模块的html是否存在
       if (ele === 'index.html') {
+        moduleObj.title = 'abc';
         moduleObj.template = `${_path}/${ele}`;
         moduleObj.filename = `${moduleID}/index.html`;
       } else {
@@ -167,7 +168,7 @@ exports.pages = () => {
     selfChunks = [
       'chunk-vendors',
       'chunk-common',
-      'threejs',
+      // 'threejs',
       fileName,
       `manifest.${fileName}`,
     ];
