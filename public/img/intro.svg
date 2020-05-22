@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: rgba(0,0,0,0.2);
+        stroke: rgba(235,235,245,0.3);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="icon_简介" transform="translate(1 1)">
+    <g id="椭圆_100" data-name="椭圆 100" class="cls-1">
+      <circle class="cls-3" cx="17" cy="17" r="17"/>
+      <circle class="cls-4" cx="17" cy="17" r="17.5"/>
+    </g>
+    <path id="减去_19" data-name="减去 19" class="cls-2" d="M-633,1056h0l-5-2-5,2a1,1,0,0,1-1-1v-14a1,1,0,0,1,1-1h10a1,1,0,0,1,1,1v14A1,1,0,0,1-633,1056Zm-9-8v2h8v-2Zm0-4v2h8v-2Z" transform="translate(655 -1031)"/>
+  </g>
+</svg>

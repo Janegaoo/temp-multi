@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #2d2d30;
+        opacity: 0;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#联合_94);
+      }
+    </style>
+    <filter id="联合_94" x="0" y="10" width="59.107" height="43.419" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.6"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="组_1010" data-name="组 1010" transform="translate(-166 -571)">
+    <rect id="标题框" class="cls-1" width="60" height="60" rx="4" transform="translate(166 571)"/>
+    <g class="cls-3" transform="matrix(1, 0, 0, 1, 166, 571)">
+      <path id="联合_94-2" data-name="联合 94" class="cls-2" d="M20.553,18.638,7.265,25.419,0,21.842l13.473-6.817L13.426,15l7.095-3.576.032.017.033-.017L27.681,15l-.047.023,13.473,6.817-7.265,3.577Zm-.023-12-6.791,3.44L6.858,6.711l9.853-4.817L20.521,0l.033.016L20.587,0l6.6,3.269-.031.016,7.015,3.476-6.7,3.352Z" transform="translate(9 17)"/>
+    </g>
+  </g>
+</svg>

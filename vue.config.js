@@ -10,20 +10,21 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const utils = require('./build/utils'); // 生成入口文件对象
 
-const productionMode = process.env.NODE_ENV === 'production';
+const productionMode = process.env.NODE_ENV === 'prod';
 
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
 
 module.exports = {
-  // pages: utils.getEntries(),
-  pages: utils.pages(),
   publicPath: productionMode ? '../' : '/', // 默认'/'，部署应用包时的基本 URL
   outputDir: 'dist',
   // assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'dev',
-  productionSourceMap: false,
+  productionSourceMap: !!productionMode,
+  // filenameHashing: true,
+  // pages: utils.getEntries(),
+  pages: utils.pages(),
   // css相关配置
   css: {
     // 是否使用css分离插件 ExtractTextPlugin
@@ -31,7 +32,8 @@ module.exports = {
     // 开启 CSS source maps?
     sourceMap: true,
     // css预设器配置项
-    loaderOptions: {},
+    loaderOptions: {
+    },
     // 启用 CSS modules for all css / pre-processor files.
     requireModuleExtension: true,
   },
@@ -55,6 +57,9 @@ module.exports = {
     },
     // after: require('./mock/mock-server.js')
   },
+  // /如果这个值是一个对象，则会通过 webpack-merge 合并到最终的配置中
+  // 如果你需要基于环境有条件地配置行为，或者想要直接修改配置，那就换成一个函数 (该函数会在环境变量被设置之后懒执行)。该方法的第一个参数会收到已经解析好的配置。在函数内，
+  // 你可以直接修改配置，或者返回一个将会被合并的对象
   configureWebpack: (config) => {
     // 后缀省略
     const v = config;
@@ -75,28 +80,68 @@ module.exports = {
     );
     if (productionMode) {
       // 为生产环境修改配置...
-      // new TerserPlugin({
-      //   cache: true,
-      //   parallel: true,
-      //   sourceMap: true, // Must be set to true if using source-maps in production
-      //   terserOptions: {
-      //     compress: {
-      //       dropConsole: true,
-      //       dropDebugger: true,
-      //     },
-      //   },
-      // });
-      (() => new TerserPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: false, // Must be set to true if using source-maps in production
-        terserOptions: {
-          compress: {
-            dropConsole: true,
-            dropDebugger: true,
+      v.optimization = {
+        minimize: true,
+        moduleIds: 'hashed',
+        minimizer: [
+          new TerserPlugin({
+            terserOptions: {
+              // ecma: undefined,
+              warnings: false,
+              // parse: {},
+              compress: {
+                warnings: false,
+                drop_console: true,
+                drop_debugger: true,
+                pure_funcs: ['console.log'],
+              },
+              // mangle: true, // Note `mangle.properties` is `false` by default.
+              // module: false,
+              output: { comments: false },
+              // toplevel: false,
+              // nameCache: null,
+              // ie8: false,
+              // keep_classnames: undefined,
+              // keep_fnames: false,
+              // safari10: false,
+            },
+            extractComments: false,
+            cache: true,
+            sourceMap: false,
+          }),
+        ],
+        splitChunks: {
+          chunks: 'all', // async表示抽取异步模块，all表示对所有模块生效，initial表示对同步模块生效
+          cacheGroups: {
+            vendors: {
+              test: /[\\/]node_modules[\\/]/, // 指定是node_modules下的第三方包
+              name: 'chunk-vendors',
+              chunks: 'all',
+              priority: -10, // 抽取优先级
+            },
+            // 抽离自定义工具库
+            utilCommon: {
+              name: 'chunk-common',
+              minSize: 1024, // 将引用模块分离成新代码文件的最小体积
+              minChunks: 2, // 表示将引用模块如不同文件引用了多少次，才能分离生成新chunk
+              priority: -20,
+            },
+            threejs: {
+              name: 'threejs',
+              // test: /[\\/]node_modules[\\/]element-ui[\\/]/,
+              test: /[\\/]node_modules[\\/]three[\\/]/,
+              chunks: 'initial',
+              reuseExistingChunk: true,
+              enforce: true,
+              priority: 3,
+            },
           },
         },
-      }))();
+        runtimeChunk: {
+          name: (entryPoint) => `manifest.${entryPoint.name}`,
+        },
+      };
+
       if (process.env.ANALYZ_ENV) {
         config.plugins.push(new BundleAnalyzerPlugin());
       }
@@ -104,6 +149,7 @@ module.exports = {
       // 为开发环境修改配置...
     }
   },
+  // 对内部的 webpack 配置（比如修改、增加Loader选项）(链式操作)
   chainWebpack: (config) => {
     config.module
       .rule('vue')
@@ -118,37 +164,13 @@ module.exports = {
       .set('vue$', 'vue/dist/vue.esm.js')
       .set('@', resolve('src'))
       .set('assets', resolve('src/assets'))
-      .set('components', resolve('src/components'));
-    config.optimization.splitChunks({
-      chunks: 'all', // async表示抽取异步模块，all表示对所有模块生效，initial表示对同步模块生效
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/, // 指定是node_modules下的第三方包
-          name: 'chunk-vendors',
-          chunks: 'all',
-          priority: -10, // 抽取优先级
-        },
-        // 抽离自定义工具库
-        utilCommon: {
-          name: 'chunk-common',
-          minSize: 1024, // 将引用模块分离成新代码文件的最小体积
-          minChunks: 2, // 表示将引用模块如不同文件引用了多少次，才能分离生成新chunk
-          priority: -20,
-        },
-        threejs: {
-          name: 'threejs',
-          // test: /[\\/]node_modules[\\/]element-ui[\\/]/,
-          test: /[\\/]node_modules[\\/]three[\\/]/,
-          chunks: 'initial',
-          reuseExistingChunk: true,
-          enforce: true,
-          priority: 3,
-        },
-      },
-    });
-    config.optimization.runtimeChunk({
-      name: (entryPoint) => `manifest.${entryPoint.name}`,
-    });
+      .set('components', resolve('src/components'))
+      .set('pub', resolve('public'))
+      .set('@build', resolve('build'));
+
+    // config.optimization.runtimeChunk({
+    //   name: (entryPoint) => `manifest.${entryPoint.name}`,
+    // });
     // 移除 preload
     glob.sync(`${PAGES_PATH}/*/main.js`).forEach((filePath) => {
       const pageName = path.basename(path.dirname(filePath));
@@ -161,6 +183,13 @@ module.exports = {
       .use('url-loader')
       .loader('url-loader')
       .tap((options) => Object.assign(options, { limit: 20000 }));
+
+    // config.output.chunkFilename('js/[name].[chunkhash:8].js');
+    config.output.filename('js/[name].[chunkhash:8].js');
+    config.output.chunkFilename('js/[name].[chunkhash:8].js');
+    // config.output.publicPath('/[name]/');
+
+    // config.output.filename('[name].[hash].js').end();
     // if (productionMode) {
     //   // 移除 prefetch 插件
     //   // config.plugins.delete('prefetch');
@@ -169,9 +198,13 @@ module.exports = {
     //   // 压缩代码
     //   config.optimization.minimize(true);
     //   // 分割代码
-    //   config.optimization.splitChunks({
-    //     chunks: 'all'
-    //   });
+    //   // config.optimization.splitChunks({
+    //   //   chunks: 'all',
+    //   // });
     // }
+    // config.plugin('html').tap((args) => {
+    //   const selfArgs = args;
+    //   console.log(selfArgs);
+    // });
   },
 };

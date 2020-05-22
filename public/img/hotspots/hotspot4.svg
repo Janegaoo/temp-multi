@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #2d2d30;
+        opacity: 0;
+      }
+
+      .cls-2, .cls-6 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #fff;
+        stroke-width: 2px;
+        opacity: 0.4;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #e3e5e9;
+      }
+
+      .cls-5 {
+        stroke: none;
+      }
+
+      .cls-7 {
+        filter: url(#减去_82);
+      }
+    </style>
+    <filter id="减去_82" x="5" y="8" width="50.111" height="46.9" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.6"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="组_1013" data-name="组 1013" transform="translate(-378 -571)">
+    <rect id="标题框" class="cls-1" width="60" height="60" rx="4" transform="translate(378 571)"/>
+    <g id="组_949" data-name="组 949" transform="translate(392 586)">
+      <g id="椭圆_196" data-name="椭圆 196" class="cls-2" transform="translate(3.212 3.211)">
+        <ellipse class="cls-5" cx="12.845" cy="12.845" rx="12.845" ry="12.845"/>
+        <ellipse class="cls-6" cx="12.845" cy="12.845" rx="11.845" ry="11.845"/>
+      </g>
+      <g class="cls-7" transform="matrix(1, 0, 0, 1, -14, -15)">
+        <path id="减去_82-2" data-name="减去 82" class="cls-3" d="M32.111,28.9h-.8L16.055,20.873.8,28.9H0L16.055,0,32.111,28.9Z" transform="translate(14 15)"/>
+      </g>
+      <path id="交叉_8" data-name="交叉 8" class="cls-4" d="M16.054,28.9h-.8L0,20.872V0L16.055,28.9h0Z" transform="translate(16.056 0.001)"/>
+    </g>
+  </g>
+</svg>

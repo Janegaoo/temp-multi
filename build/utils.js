@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-05-18 11:04:35
  * @LastEditors: Jane
- * @LastEditTime: 2020-05-19 18:21:58
+ * @LastEditTime: 2020-05-22 15:33:39
  * @Descripttion:
  */
 
@@ -164,6 +164,7 @@ exports.pages = () => {
     //     `manifest.${fileName}`
     //   ];
     // }
+    // '[name].[hash].js
     selfChunks = [
       'chunk-vendors',
       'chunk-common',
@@ -180,6 +181,7 @@ exports.pages = () => {
       // 打包后dist文件夹输出的名字
       // fileName: fileName + '.html',
       filename: `${fileName}/index.html`,
+      // chunkhash: true,
       chunks: selfChunks,
     };
   });

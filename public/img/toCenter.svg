@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="68" height="68" viewBox="0 0 68 68">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke: #e3e5e9;
+        stroke-width: 0.5px;
+        opacity: 0.9;
+      }
+
+      .cls-2 {
+        fill: #858a97;
+      }
+
+      .cls-3, .cls-4 {
+        fill: #3e8bff;
+      }
+
+      .cls-3 {
+        opacity: 0.3;
+      }
+
+      .cls-5 {
+        stroke: none;
+      }
+
+      .cls-6 {
+        fill: none;
+      }
+
+      .cls-7 {
+        filter: url(#矩形_333);
+      }
+    </style>
+    <filter id="矩形_333" x="0" y="0" width="68" height="68" filterUnits="userSpaceOnUse">
+      <feOffset dy="4" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-opacity="0.2"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="组_830" data-name="组 830" transform="translate(-301 -598)">
+    <g class="cls-7" transform="matrix(1, 0, 0, 1, 301, 598)">
+      <g id="矩形_333-2" data-name="矩形 333" class="cls-1" transform="translate(12 8)">
+        <rect class="cls-5" width="44" height="44" rx="4"/>
+        <rect class="cls-6" x="0.25" y="0.25" width="43.5" height="43.5" rx="3.75"/>
+      </g>
+    </g>
+    <g id="组_829" data-name="组 829" transform="translate(1 -0.001)">
+      <g id="组_827" data-name="组 827" transform="translate(0.113)">
+        <path id="减去_56" data-name="减去 56" class="cls-2" d="M13450,2459c-.038,0-.076,0-.114,0h.114v-6h6a2,2,0,0,1-2,2h-2v2A2,2,0,0,1,13450,2459Z" transform="translate(-13130 -1839)"/>
+        <path id="减去_62" data-name="减去 62" class="cls-2" d="M6.114,6h-6V0h0a2,2,0,0,1,2,2V4h2a2,2,0,0,1,2,2Z" transform="translate(319.887 636)"/>
+        <path id="减去_58" data-name="减去 58" class="cls-2" d="M6.114,6h-6V0h0a2,2,0,0,1,2,2V4h2a2,2,0,0,1,2,2Z" transform="translate(348.002 620.002) rotate(180)"/>
+        <path id="减去_60" data-name="减去 60" class="cls-2" d="M0,6H0V0H6A2,2,0,0,1,4,2H2V4A2,2,0,0,1,0,6Z" transform="translate(347.889 642.002) rotate(180)"/>
+      </g>
+      <g id="组_828" data-name="组 828" transform="translate(-1)">
+        <circle id="椭圆_177" data-name="椭圆 177" class="cls-3" cx="7" cy="7" r="7" transform="translate(328 621)"/>
+        <circle id="椭圆_176" data-name="椭圆 176" class="cls-4" cx="4" cy="4" r="4" transform="translate(331 624)"/>
+      </g>
+    </g>
+  </g>
+</svg>
