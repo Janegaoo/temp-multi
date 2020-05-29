@@ -1,5 +1,5 @@
 /*
-	krpano 1.20.4 ScrollArea Plugin (build 2020-02-04)
+	krpano 1.20.2 ScrollArea Plugin (build 2019-10-15)
 	https://krpano.com/plugins/scrollarea/
 */
 var krpanoplugin=function(){function J(a){return"boolean"==typeof a?a:0<="yesontrue1".indexOf(String(a).toLowerCase())}function ba(a){if(a&&n&&ca){var d=n.timertick,f=0;0==R&&(R=d);var b=d-R|0;R=d;"wheel"==a.type?f=a.deltaY:"mousewheel"==a.type?f=-a.wheelDelta:"DOMMouseScroll"==a.type&&(f=a.detail);1==h&&a.webkitDirectionInvertedFromDevice&&(f=-f);f=-f;500<b?S=1==a.deltaMode||0==f%20?0:1:66>b&&0==S&&0!=f%40&&6<Math.abs(f)&&(S=1);a.preventDefault();a.stopPropagation();0!=f&&(0==S?f=0>f?-5:5:(f/=20,

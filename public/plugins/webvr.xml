@@ -14,7 +14,7 @@
 	        mobilevr_fake_support="true"
 	        mobilevr_profile.normal="90|60|42|0|0|0"
 	        mobilevr_profile.mobile="80|60|42|35|0.441|0.156"
-	        mobilevr_wakelock="true"
+	        mobilevr_wakelock="false"
 	        fullscreen_mirroring="false"
 	        mouse_pointerlock="true"
 	        vr_cursor_onover="if(handcursor, tween(hotspot[vr_cursor].scale,0.4,0.1); vr_auto_click(get(vr_timeout)); );"
@@ -60,10 +60,8 @@
 		<!-- optional: vibrate the controllers on hovering:
 		vr_ctrl_l.addevent('onover', pulse(1.0, 0.25) );
 		vr_ctrl_r.addevent('onover', pulse(1.0, 0.25) ); -->
-		if(!global.webvr.iswebxr,
-			vr_ctrl_l.addevent('onvrcontrollerbutton', 'if(vrbuttonindex == 3 AND vrbuttonstate == "up", vrsetup_open(); );' );
-			vr_ctrl_r.addevent('onvrcontrollerbutton', 'if(vrbuttonindex == 3 AND vrbuttonstate == "up", vrsetup_open(); );' );
-		);
+		vr_ctrl_l.addevent('onvrcontrollerbutton', 'if(vrbuttonindex == 3 AND vrbuttonstate == "up", vrsetup_open(); );' );
+		vr_ctrl_r.addevent('onvrcontrollerbutton', 'if(vrbuttonindex == 3 AND vrbuttonstate == "up", vrsetup_open(); );' );
 		
 		set(global.webvr.vr_controller, 'vr_controller_l,vr_controller_r');
 		set(global.have_vr_controllers, true);
@@ -647,9 +645,13 @@
 				if (change < 0) { p = Math.max(0.2, Number(p) - 0.1); webvr.oversampling = p;  } else 
 				if (change > 0) { p = Math.min(4.0, Number(p) + 0.1); webvr.oversampling = p;  }
 				
-				krpano.actions.delayedcall(0.3, function()
+				krpano.actions.delayedcall(0, function()
 				{
-					renderres.html = webvr.renderwidth + "x" + webvr.renderheight;
+					var gl = krpano.webGL.context;
+					var gl_width  = gl.drawingBufferWidth  | 0;
+					var gl_height = gl.drawingBufferHeight | 0;
+					
+					renderres.html = gl_width + "x" + gl_height;
 				});
 				
 				return p.toFixed(1);

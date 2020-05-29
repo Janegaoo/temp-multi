@@ -21,7 +21,7 @@ module.exports = {
   outputDir: 'dist',
   // assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'dev',
-  productionSourceMap: !!productionMode,
+  productionSourceMap: false,
   // filenameHashing: true,
   // pages: utils.getEntries(),
   pages: utils.pages(),
@@ -78,11 +78,14 @@ module.exports = {
         ],
       }),
     );
+
     if (productionMode) {
       // 为生产环境修改配置...
       v.optimization = {
         minimize: true,
         moduleIds: 'hashed',
+        // namedModules: true, // 解决方案是将默认的数字 id 命名规则换成路径的方式。webpack 4 中当 mode 为 development 会默认启动
+        namedChunks: true,
         minimizer: [
           new TerserPlugin({
             terserOptions: {
@@ -91,13 +94,15 @@ module.exports = {
               // parse: {},
               compress: {
                 warnings: false,
-                drop_console: true,
+                drop_console: true, // 不生效
                 drop_debugger: true,
                 pure_funcs: ['console.log'],
               },
               // mangle: true, // Note `mangle.properties` is `false` by default.
               // module: false,
-              output: { comments: false },
+              output: {
+                comments: false,
+              },
               // toplevel: false,
               // nameCache: null,
               // ie8: false,
@@ -105,9 +110,10 @@ module.exports = {
               // keep_fnames: false,
               // safari10: false,
             },
-            extractComments: false,
+            extractComments: false, // 不单独提取注释
             cache: true,
             sourceMap: false,
+            parallel: 4, // 进程
           }),
         ],
         splitChunks: {
@@ -142,6 +148,14 @@ module.exports = {
         },
       };
 
+      // v.output.path = path.join(__dirname, './dist');
+      v.output.filename = 'js/[name].[chunkhash:8].js';
+      v.output.chunkFilename = 'js/[name].[chunkhash:8].js';
+
+      // config.output.chunkFilename('js/[name].[chunkhash:8].js');
+      // config.output.filename('js/[name].[chunkhash:8].js');
+      // config.output.chunkFilename('js/[name].[chunkhash:8].js');
+
       if (process.env.ANALYZ_ENV) {
         config.plugins.push(new BundleAnalyzerPlugin());
       }
@@ -163,9 +177,9 @@ module.exports = {
     config.resolve.alias
       .set('vue$', 'vue/dist/vue.esm.js')
       .set('@', resolve('src'))
-      .set('assets', resolve('src/assets'))
-      .set('components', resolve('src/components'))
-      .set('pub', resolve('public'))
+      .set('@assets', resolve('src/assets'))
+      .set('@components', resolve('src/components'))
+      .set('@pub', resolve('public'))
       .set('@build', resolve('build'));
 
     // config.optimization.runtimeChunk({
@@ -184,10 +198,40 @@ module.exports = {
       .loader('url-loader')
       .tap((options) => Object.assign(options, { limit: 20000 }));
 
-    // config.output.chunkFilename('js/[name].[chunkhash:8].js');
-    config.output.filename('js/[name].[chunkhash:8].js');
-    config.output.chunkFilename('js/[name].[chunkhash:8].js');
+    // svg
+    config.module.rules.delete('svg'); // 重点:删除默认配置中处理svg,
+    config.module
+      .rule('svg')
+      .exclude.add(resolve('src/assets/icons/svg'))
+      .end();
+
+    config.module
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/assets/icons/svg'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]',
+      });
+
     // config.output.publicPath('/[name]/');
+    if (productionMode) {
+      config.optimization.delete('splitChunks'); // webpack 会默认给commonChunk打进chunk-vendors。所以需要对webpack的配置进行delete
+
+      // config.module.rule('img').use('url-loader').loader('url-loader').tap((options) => {
+      //   const selfOptions = options;
+      //   selfOptions.name = 'img/[name].[hash:8].[ext]';
+      //   return selfOptions;
+      // });
+      config.plugin('extract-css').tap(() => [
+        {
+          filename: 'css/[name].[contenthash:8].css',
+          chunkFilename: 'css/[name].[contenthash:8].css',
+        },
+      ]);
+    }
 
     // config.output.filename('[name].[hash].js').end();
     // if (productionMode) {

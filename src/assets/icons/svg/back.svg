@@ -1,0 +1,20 @@
+<svg id="返回" xmlns="http://www.w3.org/2000/svg" width="19.998" height="16" viewBox="0 0 19.998 16">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        fill: rgba(235,235,245,0.6);
+      }
+
+      .cls-1 {
+        opacity: 0;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <rect id="矩形_53" data-name="矩形 53" class="cls-1" width="16" height="16"/>
+  <path id="联合_1" data-name="联合 1" class="cls-2" d="M0,10V1A1,1,0,0,1,1,0h9a1,1,0,1,1,0,2H2v8a1,1,0,1,1-2,0Z" transform="translate(0 8.071) rotate(-45)"/>
+  <rect id="矩形_123" data-name="矩形 123" class="cls-3" width="2" height="14.9" rx="1" transform="translate(5.098 9) rotate(-90)"/>
+</svg>

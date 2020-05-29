@@ -2,7 +2,7 @@
  * @Author: Jane
  * @Date: 2020-05-21 14:09:55
  * @LastEditors: Jane
- * @LastEditTime: 2020-05-21 17:53:57
+ * @LastEditTime: 2020-05-28 15:56:30
  * @Descripttion:
  */
 /**
@@ -10,6 +10,7 @@
  */
 const dev = {
   BASE_API: 'https://192.168.0.0',
+  ENV: 'dev',
 };
 
 /**
@@ -17,6 +18,7 @@ const dev = {
  */
 const test = {
   BASE_API: 'https://192.168.0.0',
+  ENV: 'prod',
 };
 
 /**
@@ -24,10 +26,12 @@ const test = {
  */
 const prod = {
   BASE_API: 'http://wwww.xiaohongwu.com',
+  ENV: 'prod',
 };
 
 let SERVER = null;
-switch (process.env.APP_CURRENTMODE) {
+console.log(process.env);
+switch (process.env.VUE_APP_CURRENTMODE) {
   case 'dev':
     SERVER = dev;
     break;
